@@ -1,6 +1,6 @@
 import os
 import time
-from flask import Blueprint, render_template, request, jsonify, flash, redirect, url_for, current_app
+from flask import Blueprint, render_template, request, jsonify, flash, redirect, url_for, current_app, send_from_directory
 from flask_login import login_required
 from werkzeug.utils import secure_filename
 from app.db import get_db
@@ -62,11 +62,31 @@ def get_latest_firmware():
     if not latest:
         return jsonify({"error": "No firmware found"}), 404
         
-    # Build full URL for the binary
-    download_url = request.host_url.rstrip('/') + url_for('static', filename=f"firmware/{latest['filename']}")
+    # Build full URL for the binary - FIXED: removed /static and correct path
+    download_url = request.host_url.rstrip('/') + f"/firmware/download/{latest['filename']}"
     
     return jsonify({
         "version": latest['version'],
         "url": download_url,
         "device_type": latest['device_type']
     })
+
+# NEW: Route to serve firmware files (without 'static' in URL)
+@bp.route('/firmware/download/<filename>')
+def download_firmware(filename):
+    """Serve firmware files from UPLOAD_FOLDER"""
+    return send_from_directory(
+        current_app.config['UPLOAD_FOLDER'], 
+        filename, 
+        as_attachment=True
+    )
+
+# Optional: If you also want a direct route without 'download' in path
+@bp.route('/firmware/<filename>')
+def serve_firmware(filename):
+    """Alternative: serve firmware without /download/ in URL"""
+    return send_from_directory(
+        current_app.config['UPLOAD_FOLDER'], 
+        filename, 
+        as_attachment=True
+    )

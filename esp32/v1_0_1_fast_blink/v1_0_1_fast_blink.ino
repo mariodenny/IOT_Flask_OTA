@@ -6,14 +6,14 @@
 // ----------------------------------------------------
 // SETTINGS TO CHANGE
 // ----------------------------------------------------
-const char* ssid = "YOUR_WIFI_NAME";
-const char* password = "YOUR_WIFI_PASSWORD";
+const char* ssid = "ikan terbang";
+const char* password = "11221122";
 
 // THIS IS VERSION 1.0.1 (The Fast Blink)
 const char* CURRENT_VERSION = "1.0.1";
 
 // Replace with the IP address of the computer running Flask
-const char* SERVER_URL = "http://192.168.1.100:5000/api/firmware/latest?device=esp32";
+const char* SERVER_URL = "http://10.157.245.125:5000//api/firmware/latest?device=esp32";
 // ----------------------------------------------------
 
 const unsigned long CHECK_INTERVAL = 10000; 

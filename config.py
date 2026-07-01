@@ -11,7 +11,7 @@ class Config:
     MYSQL_PORT = 3306
     
     # Upload folder for firmware binaries
-    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'firmware')
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)),'firmware')
     
     # Max upload size (e.g., 16 MB)
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
