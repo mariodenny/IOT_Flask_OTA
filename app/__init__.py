@@ -20,10 +20,7 @@ def create_app():
     # User loader function for Flask-Login
     @login_manager.user_loader
     def load_user(user_id):
-        # We define a tiny class just to satisfy Flask-Login requirements
-        # But we do not use OOP anywhere else
-        class User:
-            pass
+        from app.models import User
         
         db = get_db(app)
         cursor = db.cursor(dictionary=True)
@@ -33,10 +30,7 @@ def create_app():
         db.close()
 
         if user_data:
-            user = User()
-            user.id = str(user_data['id'])
-            user.username = user_data['username']
-            return user
+            return User(str(user_data['id']), user_data['username'])
         return None
 
     # Register blueprints (routes)

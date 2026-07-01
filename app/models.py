@@ -1,5 +1,13 @@
 import mysql.connector
 from flask import current_app
+from flask_login import UserMixin
+
+
+class User(UserMixin):
+    def __init__(self, id, username):
+        self.id = id
+        self.username = username
+
 
 
 def get_db_connection():
